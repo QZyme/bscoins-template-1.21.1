@@ -1,0 +1,15 @@
+{
+  "neoforge:conditions": [
+    { "type": "bscoins:config", "value": "enableToss" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "minecraft:emerald" },
+    { "item": "minecraft:iron_ingot" }
+  ],
+  "result": {
+    "id": "bscoins:coin_toss",
+    "count": 1
+  }
+}

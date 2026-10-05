@@ -1,0 +1,23 @@
+{
+  "name": "The Three Parts",
+  "category": "bscoins:basics",
+  "icon": "bscoins:like",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Like / Toss / Favorite",
+      "text": "$(li)$(item)Like$(): redstone + paper$(li)$(item)Coin Toss$(): emerald + iron ingot$(li)$(item)Favorite$(): book and quill + ender pearl$(br2)Each part can be disabled in the config; disabled parts drop their recipe."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "What they do",
+      "text": "$(li)$(item)Like$(): Goad (8s) to yourself and players within 8 blocks, hearts, 20s cooldown$(li)$(item)Coin Toss$(): 50/50 Luck or Bad Luck for 60s, 2s cooldown, no item consumed$(li)$(item)Favorite$(): bookmark blocks, sneak + right click to list (max 16)"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Luck & Bad Luck",
+      "text": "Luck / Bad Luck add +1 / -1 to the luck attribute. It affects chests and barrels, mob drops, fishing, archaeology brushing, trial vaults and advancement rewards (higher weight for quality entries, extra loot rolls).$(br2)It does NOT affect enchanting, anvils or villager trades. Having both cancels out."
+    }
+  ]
+}

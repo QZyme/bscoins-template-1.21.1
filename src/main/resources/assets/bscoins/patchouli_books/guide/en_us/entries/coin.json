@@ -1,0 +1,23 @@
+{
+  "name": "Beishan Coin",
+  "category": "bscoins:basics",
+  "icon": "bscoins:bs_coin",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "What it is",
+      "text": "The Beishan Coin is the core currency of this mod - and a coin you can literally launch at things.$(br2)It doubles as a weapon, a tip and a key to several systems."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Right click",
+      "text": "$(li)Players: tip them (Goad + Boss)$(li)Monsters: 50% Stun / 50% infighting$(li)Villagers: permanent 20% off$(li)Hold right click 3s: spawn a Team Circle$(br2)Throw with $(thing)Q$() or $(thing)V$(); sneak + Q builds the whole $(thing)test setup$() (floor under your feet + a dummy) for one coin."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Crafting",
+      "text": "Like + Coin Toss + Favorite (shapeless) = Beishan Coin (stacks to 64).$(br2)Dev Beishan Coin = Beishan Coin + Nether Star - see the Throwing chapter."
+    }
+  ]
+}

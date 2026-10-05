@@ -1,0 +1,18 @@
+{
+  "name": "小卖部与团建圈",
+  "category": "bscoins:systems",
+  "icon": "minecraft:emerald",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "北山小卖部",
+      "text": "流浪商人会被替换成北山小卖部, 用绿宝石换道具:$(li)催更大喇叭 16$(li)鸽子诱捕器 12$(li)基建狂魔镐 32$(li)北山签名照 8$(li)NBT 查看器 20$(li)结构空投 24"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "北山团建圈",
+      "text": "手持北山币长按右键 3 秒生成 (消耗 1 枚): 半径 10 格、持续 10 分钟。$(br2)圈内作物加速生长, 挖东西掉的经验球更多。"
+    }
+  ]
+}

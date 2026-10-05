@@ -1,0 +1,18 @@
+{
+  "name": "怪物与村民",
+  "category": "bscoins:combat",
+  "icon": "minecraft:iron_sword",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "右键怪物",
+      "text": "消耗 1 枚北山币:$(li)50% 概率 $(thing)眩晕$() 5 秒 —— 目标完全定身, 速度和寻路都被冻住$(li)另外 50% 触发 $(thing)内讧$() —— 让附近的同类互相打起来 (半径 16 格)$(br2)概率和半径都能在配置里调。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "右键村民",
+      "text": "给村民 1 枚北山币, 换 $(thing)永久 8 折$() (折扣 20%)。$(br2)流浪商人也吃这一套; 小卖部的村民另有惊喜。"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "bscoins:bs_coin"
+    },
+    "title": {
+      "translate": "advancement.bscoins.root.title"
+    },
+    "description": {
+      "translate": "advancement.bscoins.root.description"
+    },
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_like": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "bscoins:like"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_like"
+    ]
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "neoforge:conditions": [
+    { "type": "bscoins:config", "value": "enableFavorite" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "minecraft:writable_book" },
+    { "item": "minecraft:ender_pearl" }
+  ],
+  "result": {
+    "id": "bscoins:favorite",
+    "count": 1
+  }
+}

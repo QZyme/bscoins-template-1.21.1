@@ -1,0 +1,18 @@
+{
+  "name": "打赏与两种 Buff",
+  "category": "bscoins:combat",
+  "icon": "minecraft:golden_apple",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "打赏",
+      "text": "手持北山币右键玩家 (也可以在远处直接把币投出去砸中他) 即打赏, 消耗 1 枚, 对方获得 30 秒:$(li)$(thing)鸡血$(): 攻击伤害 +4, 攻击速度 +40%$(li)$(thing)老板$(): 最大生命 +6, 护甲 +4"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "数值是怎么算的",
+      "text": "鸡血每级 +2 伤害 / +20% 攻速, 老板每级 +6 生命 / +4 护甲; 打赏用的是配置里的等级 (默认 鸡血 II 级 / 老板 I 级)。$(br2)点赞和大喇叭给的鸡血是 I 级 (+2 伤害 / +20% 攻速), 但持续时间短。"
+    }
+  ]
+}

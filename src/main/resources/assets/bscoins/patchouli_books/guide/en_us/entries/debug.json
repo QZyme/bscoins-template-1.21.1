@@ -1,0 +1,23 @@
+{
+  "name": "Debug & Config",
+  "category": "bscoins:systems",
+  "icon": "minecraft:command_block",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Sneak + Q",
+      "text": "With a coin in hand, sneak + Q does everything for $(thing)1 coin$():$(li)cover the layer $(thing)directly under your feet$() with a 20x20 test platform (it overwrites the terrain)$(li)summon one test dummy 3 blocks in front of you$(br2)Either half can be disabled in the config; if both are off, no coin is spent."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Test dummy",
+      "text": "100 health, a boss bar with a countdown (60s by default) and it disappears on its own.$(br2)When hit it shows floating $(thing)damage numbers$() (the real health lost, red on a killing blow). Hits within 0.6s stack upward instead of overlapping."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Dev assistant & config",
+      "text": "Press $(thing)G$() with a coin (or sneak + right click air) to open the Beishan Dev Assistant, costs 1 coin; sneak + Q with a dev coin runs /reload.$(br2)Every number lives in $(thing)config/bscoins-common.toml$()."
+    }
+  ]
+}

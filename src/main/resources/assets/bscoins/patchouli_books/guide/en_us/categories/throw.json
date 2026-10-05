@@ -1,0 +1,6 @@
+{
+  "name": "Throwing",
+  "description": "Launch the coin with Q / V: speed, drag, sticking, damage and range.",
+  "icon": "minecraft:arrow",
+  "sortnum": 1
+}

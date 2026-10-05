@@ -1,0 +1,14 @@
+{
+  "name": "开发版北山币",
+  "category": "bscoins:throw",
+  "icon": "bscoins:dev_bs_coin",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:dev_bs_coin",
+      "title": "特制币",
+      "text": "北山币 + 下界之星。特制属性: $(li)射程无上限, 永不烧毁$(li)飞满 120 秒后变成地上可捡的掉落物, 绝不凭空消失$(br2)潜行 + Q: 直接执行 $(thing)/reload$() (消耗 1 枚)。"
+    }
+  ]
+}

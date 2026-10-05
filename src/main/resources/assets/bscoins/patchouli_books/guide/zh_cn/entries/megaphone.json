@@ -1,0 +1,14 @@
+{
+  "name": "催更大喇叭",
+  "category": "bscoins:items",
+  "icon": "bscoins:nag_megaphone",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:nag_megaphone",
+      "title": "催更大喇叭",
+      "text": "右键朝视线方向喊出一个 $(thing)扇形$(): 张开 90 度 (±45 度)、长 32 格。$(br2)号角 4 倍音量 + 扇形音浪粒子, 一眼能看出覆盖范围; 扇形内所有玩家收到催更消息并拿到 20 秒鸡血。冷却 5 秒防刷屏。"
+    }
+  ]
+}

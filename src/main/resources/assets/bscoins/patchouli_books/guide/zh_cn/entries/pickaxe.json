@@ -1,0 +1,14 @@
+{
+  "name": "基建狂魔镐",
+  "category": "bscoins:items",
+  "icon": "bscoins:infra_pickaxe",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:infra_pickaxe",
+      "title": "基建狂魔镐",
+      "text": "非潜行挖掘时会连带挖掉一个 3x3 的平面 (按你视线朝向决定是哪个平面)。$(br2)潜行 = 只挖一格; 空气、带方块实体的方块、以及工具本身挖不动的方块都会被跳过。"
+    }
+  ]
+}

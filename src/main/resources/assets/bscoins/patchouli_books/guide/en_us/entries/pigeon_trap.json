@@ -1,0 +1,14 @@
+{
+  "name": "Pigeon Trap",
+  "category": "bscoins:items",
+  "icon": "bscoins:pigeon_trap",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:pigeon_trap",
+      "title": "Pigeon Trap",
+      "text": "Right click to release a flock: 5 live birds scatter in a fan, each one coos, and a puff of smoke bursts from the trap.$(br2)Released birds despawn naturally when you walk away. Count is configurable."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "鸽子诱捕器",
+  "category": "bscoins:items",
+  "icon": "bscoins:pigeon_trap",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:pigeon_trap",
+      "title": "鸽子诱捕器",
+      "text": "右键放出一群鸽子: 5 只活鸟伞形飞散, 每只都咕一声, 笼子位置爆开一团白烟。$(br2)放出来的鸽子走远后会像普通生物一样自然消失, 不会越攒越多。数量可在配置里调。"
+    }
+  ]
+}

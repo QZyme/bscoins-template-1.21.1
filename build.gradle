@@ -1,0 +1,140 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.144'
+    id 'idea'
+}
+
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+version = mod_version
+group = mod_group_id
+
+sourceSets.main.resources {
+    srcDir('src/generated/resources')
+
+    // 别把 Blockbench 源文件、数据生成器的缓存之类的东西打进 jar
+    // (runData 会在 src/generated/resources 里留下一个空的 .cache 目录, 之前的写法排除不掉)
+    exclude("**/*.bbmodel")
+    exclude("**/.cache/**")
+    exclude("**/.cache")
+    exclude("src/generated/**/.cache")
+}
+
+repositories {
+    // Patchouli (说明书) 的发布仓库
+    maven {
+        name = 'BlameJared'
+        url = 'https://maven.blamejared.com'
+    }
+}
+
+base {
+    archivesName = mod_id
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            // 客户端运行内存 (MDG RunModel 支持 jvmArgument)
+            jvmArgument '-Xmx4G'
+            jvmArgument '-XX:+UseG1GC'
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            jvmArgument '-Xmx2G'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+        gameTestServer {
+            type = "gameTestServer"
+            jvmArgument '-Xmx2G'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+            jvmArgument '-Xmx2G'
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+dependencies {
+    // 帕秋莉手册 (说明书用). 它是正经 mod (自带 META-INF/neoforge.mods.toml),
+    // 所以按 MDG 的规则直接放进 implementation 就会在 runClient 里被加载;
+    // 注意: 这不会把它打进我们的 jar, 玩家端仍需自行安装 Patchouli, 没装时说明书相关的数据不会生效 (配方也被 mod_loaded 条件挡住了)。
+    implementation "vazkii.patchouli:Patchouli:1.21.1-93-NEOFORGE"
+}
+
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/repo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' }
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}

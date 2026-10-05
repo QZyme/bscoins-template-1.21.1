@@ -1,0 +1,8 @@
+{
+  "name": "北山币指南",
+  "landing_text": "北山币模组的完整说明书。$(br2)左边是目录: 找不到东西就翻 $(thing)道具图鉴$() 和 $(thing)系统与调试$()。",
+  "version": "1",
+  "use_resource_pack": true,
+  "creative_tab": "bscoins:bscoins_tab",
+  "show_progress": false
+}

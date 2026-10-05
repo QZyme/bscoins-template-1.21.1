@@ -1,0 +1,6 @@
+{
+  "name": "Systems & Debug",
+  "description": "Shop, team circle, test platform/dummy/damage numbers, dev assistant, config.",
+  "icon": "minecraft:command_block",
+  "sortnum": 4
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Shop & Team Circle",
+  "category": "bscoins:systems",
+  "icon": "minecraft:emerald",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Beishan Shop",
+      "text": "Wandering traders are replaced by the Beishan Shop, trading emeralds for items:$(li)Nag Megaphone 16$(li)Pigeon Trap 12$(li)Infra Pickaxe 32$(li)Beishan Photo 8$(li)NBT Viewer 20$(li)Structure Airdrop 24"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Team Circle",
+      "text": "Hold right click for 3 seconds with a coin (costs 1): radius 10 blocks, lasts 10 minutes.$(br2)Crops inside grow faster and mining yields more experience."
+    }
+  ]
+}

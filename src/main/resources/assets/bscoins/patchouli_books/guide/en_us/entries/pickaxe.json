@@ -1,0 +1,14 @@
+{
+  "name": "Infra Pickaxe",
+  "category": "bscoins:items",
+  "icon": "bscoins:infra_pickaxe",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:infra_pickaxe",
+      "title": "Infra Pickaxe",
+      "text": "Mining without sneaking also breaks a 3x3 plane (the plane is chosen by your look direction).$(br2)Sneak to mine a single block. Air, blocks with block entities, and blocks the tool cannot harvest are skipped."
+    }
+  ]
+}

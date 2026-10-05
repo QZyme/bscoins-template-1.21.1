@@ -1,0 +1,42 @@
+{
+  "display": {
+    "icon": {
+      "id": "bscoins:bs_coin"
+    },
+    "title": {
+      "translate": "advancement.bscoins.sanlian.title"
+    },
+    "description": {
+      "translate": "advancement.bscoins.sanlian.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "bscoins:root",
+  "criteria": {
+    "craft_bs_coin": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "bscoins:bs_coin"
+      }
+    },
+    "has_bs_coin": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "bscoins:bs_coin"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "craft_bs_coin",
+      "has_bs_coin"
+    ]
+  ]
+}

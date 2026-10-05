@@ -1,0 +1,18 @@
+{
+  "name": "Tipping & Buffs",
+  "category": "bscoins:combat",
+  "icon": "minecraft:golden_apple",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Tip",
+      "text": "Right click a player with a coin (or hit them with a thrown one) and they get 30 seconds of:$(li)$(thing)Goad$(): +4 attack damage, +40% attack speed$(li)$(thing)Boss$(): +6 max health, +4 armor"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Numbers",
+      "text": "Goad is +2 damage / +20% attack speed per level, Boss is +6 health / +4 armor per level. Tipping uses the configured levels (Goad II, Boss I by default).$(br2)Like and the megaphone give level I Goad (+2 / +20%) for a shorter time."
+    }
+  ]
+}

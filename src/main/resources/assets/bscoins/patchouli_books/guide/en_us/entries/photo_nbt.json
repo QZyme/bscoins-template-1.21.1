@@ -1,0 +1,20 @@
+{
+  "name": "Photo & NBT Viewer",
+  "category": "bscoins:items",
+  "icon": "bscoins:beishan_photo",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:beishan_photo",
+      "title": "Beishan Photo",
+      "text": "Hold it up to take a picture: a flash and sparks in front of you, a shutter sound, and every player within 16 blocks gets a message saying they were blinded by it."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:nbt_viewer",
+      "title": "NBT Viewer",
+      "text": "Right click a block for its block entity NBT, right click an entity for its NBT. Everything is printed to chat."
+    }
+  ]
+}

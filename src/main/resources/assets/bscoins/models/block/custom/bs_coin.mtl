@@ -1,0 +1,4 @@
+# Made in Blockbench 5.1.4 (adapted for NeoForge)
+newmtl m_bs_coin
+map_Kd bscoins:block/bs_coin
+newmtl none

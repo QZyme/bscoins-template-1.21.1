@@ -1,0 +1,6 @@
+{
+  "name": "Items",
+  "description": "Megaphone, pigeon trap, infra pickaxe, photo, NBT viewer, airdrop, nag letter.",
+  "icon": "bscoins:nag_megaphone",
+  "sortnum": 3
+}

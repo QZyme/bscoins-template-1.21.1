@@ -1,0 +1,14 @@
+{
+  "name": "Dev Beishan Coin",
+  "category": "bscoins:throw",
+  "icon": "bscoins:dev_bs_coin",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:dev_bs_coin",
+      "title": "Special coin",
+      "text": "Beishan Coin + Nether Star. Special: unlimited range, never burns, and after 120s it drops as an item instead of vanishing.$(br2)Sneak + Q runs $(thing)/reload$() (costs 1 coin)."
+    }
+  ]
+}

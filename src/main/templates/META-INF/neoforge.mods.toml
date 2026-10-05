@@ -1,0 +1,79 @@
+
+modLoader="javafml" #mandatory
+
+loaderVersion="${loader_version_range}" #mandatory
+
+license="${mod_license}"
+
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+
+[[mods]] #mandatory
+
+modId="bscoins" #mandatory
+
+version="${mod_version}" #mandatory
+
+displayName="${mod_name}" #mandatory
+
+#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+
+logoFile="icon.png" #optional
+
+#credits="" #optional
+
+authors="QZyme"
+
+description='''
+北山币 (BS Coins) - 粉丝整活 + 模组开发辅助工具包。
+- 三大部件: 红石+纸 -> 点赞, 绿宝石+铁锭 -> 投币, 书与笔+末影珍珠 -> 收藏; 三者无序合成 北山币 (成就: 三连支持)
+- 北山币右键: 玩家打赏 (鸡血+4伤害/+40%攻速, 老板+6血/+4甲), 怪物 50%眩晕/50%内讧, 村民永久8折, 长按右键3秒生成北山团建圈
+- 弹射投币 (Q / V): 出手带破空声, 币在飞行中翻滚并拖出火花尾迹; 初速9格每tick + 空气阻力0.97 + 重力0.055,
+  平抛约65格落地; 伤害随命中速率缩放 (贴脸约12), 命中带撞击声/火花/击退;
+  撞方块像箭一样插住不再弹跳 (每枚插住的角度都不同), 走近1.5格拾取; 普通币水平射程超过130格烧毁, 开发版北山币射程无限/永不烧毁
+- 道具: 催更大喇叭(扇形±45度/32格)、鸽子诱捕器、基建狂魔镐(3x3, 可正常附魔)、北山签名照(3D相框)、NBT查看器、
+  结构空投(看得见的箱子从40格高空缓降, 箱内小概率开出北山币系列道具)、催更律师函、北山小卖部(替换流浪商人)
+- 调试: 潜行Q一键搭测试场地(脚下一层平台 + 测试假人, 带血条/倒计时/伤害数字), G键开发助手
+- 可选依赖 帕秋莉手册 (Patchouli): 装上后多一本《北山币指南》(书 + 北山币合成), 中英双语
+- 全部 73 项配置都在 config/bscoins-common.toml 里 (游戏内分 11 个小节, 中英双语标题): 投掷物理、粒子、价格、Buff、功能开关
+A fan-made coin toolkit mod for NeoForge 1.21.1. Optional Patchouli guide book included. All numbers are configurable.
+'''
+
+# 本模组没有使用 Mixin, 所以这里没有 [[mixins]] 块。
+# 以后要写 Mixin 时: 新建 src/main/resources/bscoins.mixins.json
+#   { "required": true, "package": "com.beishan.bscoins.mixin", "compatibilityLevel": "JAVA_21",
+#     "mixins": [], "injectors": { "defaultRequire": 1 } }
+# 并在这里加回:
+#   [[mixins]]
+#   config="bscoins.mixins.json"
+
+#[[accessTransformers]]
+#file="META-INF/accesstransformer.cfg"
+
+# The coremods config file path is not configurable and is always loaded from META-INF/coremods.json
+
+[[dependencies.bscoins]] #optional
+    modId="neoforge" #mandatory
+    type="required" #mandatory
+    versionRange="[${neo_version},)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.bscoins]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+# 帕秋莉手册 (可选): 装了才有《北山币指南》说明书, 没装不影响其它任何功能
+[[dependencies.bscoins]]
+    modId="patchouli"
+    type="optional"
+    versionRange="[1.21,)"
+    ordering="AFTER"
+    side="BOTH"
+
+#[features.bscoins]
+#openGLVersion="[3.2,)"

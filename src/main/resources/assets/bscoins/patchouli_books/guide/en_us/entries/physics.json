@@ -1,0 +1,23 @@
+{
+  "name": "Throwing Feel",
+  "category": "bscoins:throw",
+  "icon": "bscoins:bs_coin",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Physics",
+      "text": "Press $(thing)Q$() or $(thing)V$(): fastest at launch, then slowed by air drag.$(li)Launch speed 10 blocks/tick$(li)Drag 0.94 per tick$(li)Gravity 0.04 blocks/tick^2$(br2)A flat throw lands about 82 blocks away; 2 degrees up reaches about 124."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Damage",
+      "text": "Damage scales with the actual speed at the moment of impact: about 6.5 at full speed, around 12 point blank, capped at 48.$(br2)Falling at the end of the arc adds vertical speed back, so lobbed hits hurt more."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Sticking & pickup",
+      "text": "The coin sticks where it hits, like an arrow. After 0.5s the owner can pick it up by walking within 1.5 blocks.$(br2)A normal coin burns up past 130 blocks of range and lives at most 120 seconds."
+    }
+  ]
+}

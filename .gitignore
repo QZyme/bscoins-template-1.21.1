@@ -1,0 +1,44 @@
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/**/build/
+
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/**/out/
+
+.run/
+
+.apt_generated
+.classpath
+.eclipse/
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/**/bin/
+
+.vscode/
+
+.DS_Store
+
+run/
+!**/src/**/run/
+**/src/generated/**/.cache/
+repo/
+!**/src/**/repo/
+
+# 原始模型源文件 (Blockbench/.obj) 不入库; 正式模型会放进 src/main/resources
+模型/
+
+# 临时脚手架 / 贴图备份
+.dsh-tmp/
+*.bak
+
+# 发布用的介绍文档 / 视频文案 / 配套渲染图: 只在本地保留, 不入库
+/docs/

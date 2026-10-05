@@ -1,0 +1,23 @@
+{
+  "name": "北山币",
+  "category": "bscoins:basics",
+  "icon": "bscoins:bs_coin",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "这是什么",
+      "text": "北山币是本模组的核心货币, 手感像一枚能弹射出去的金币。$(br2)它本身还能当武器、当打赏、当传送门钥匙(见后面各章)。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "右键能做什么",
+      "text": "$(li)右键玩家: 打赏, 给对方鸡血 + 老板 Buff$(li)右键怪物: 50% 眩晕 / 50% 内讧$(li)右键村民: 永久 8 折$(li)长按右键 3 秒: 生成北山团建圈$(br2)投掷: $(thing)Q$() 或 $(thing)V$(); 潜行 + Q 是$(thing)一键搭测试场地$() (脚下一层平台 + 面前一个假人, 共 1 枚币)。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "合成",
+      "text": "点赞 + 投币 + 收藏 三件无序合成即为北山币 (堆叠 64)。$(br2)开发版北山币 = 北山币 + 下界之星, 是特制版, 详见 $(thing)投掷与手感$() 一章。"
+    }
+  ]
+}

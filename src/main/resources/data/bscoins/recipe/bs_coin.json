@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    { "type": "bscoins:config", "value": "enableBsCoin" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "bscoins:like" },
+    { "item": "bscoins:coin_toss" },
+    { "item": "bscoins:favorite" }
+  ],
+  "result": {
+    "id": "bscoins:bs_coin",
+    "count": 1
+  }
+}

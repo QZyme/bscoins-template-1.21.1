@@ -1,0 +1,14 @@
+{
+  "name": "Nag Megaphone",
+  "category": "bscoins:items",
+  "icon": "bscoins:nag_megaphone",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:nag_megaphone",
+      "title": "Nag Megaphone",
+      "text": "Right click to shout a $(thing)fan-shaped area$() toward where you look: 90 degrees wide, 32 blocks long.$(br2)A loud horn plus sound-wave particles make the covered area obvious; everyone inside gets a nag message and 20s of Goad. 5s cooldown."
+    }
+  ]
+}

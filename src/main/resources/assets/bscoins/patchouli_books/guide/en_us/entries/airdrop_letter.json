@@ -1,0 +1,20 @@
+{
+  "name": "Airdrop & Nag Letter",
+  "category": "bscoins:items",
+  "icon": "bscoins:structure_airdrop",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:structure_airdrop",
+      "title": "Structure Airdrop",
+      "text": "Right click to deploy: a crate descends from 40 blocks up at 0.15 blocks/tick (about 13 seconds) with clouds trailing behind and a signal flare rising first.$(br2)On landing it becomes a loot chest and the owner is told the coordinates."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:pressure_letter",
+      "title": "Beishan Nag Letter",
+      "text": "Go 5 Minecraft days without using or crafting a Beishan Coin and the nag letter starts following you: slowdown plus pigeon particles above your head, until you spend a coin."
+    }
+  ]
+}

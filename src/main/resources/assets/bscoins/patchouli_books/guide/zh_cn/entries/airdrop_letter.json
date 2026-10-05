@@ -1,0 +1,20 @@
+{
+  "name": "结构空投与催更函",
+  "category": "bscoins:items",
+  "icon": "bscoins:structure_airdrop",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:structure_airdrop",
+      "title": "结构空投",
+      "text": "右键投放: 箱子从 40 格高空缓缓降落 (0.15 格/tick, 约 13 秒), 一路冒云、还有一道升空信号弹。$(br2)落地后变成战利品箱并通知投放者坐标。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:pressure_letter",
+      "title": "《北山催更函》",
+      "text": "连续 5 个 MC 天没用过/合成过北山币, 就会被催更函盯上: 缓慢减速 + 头顶一直冒鸽子粒子, 直到你用掉一枚币才解除。"
+    }
+  ]
+}

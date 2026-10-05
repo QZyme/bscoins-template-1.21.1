@@ -1,0 +1,18 @@
+{
+  "name": "Monsters & Villagers",
+  "category": "bscoins:combat",
+  "icon": "minecraft:iron_sword",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Right click a monster",
+      "text": "Costs 1 coin:$(li)50% $(thing)Stun$() for 5 seconds - movement and navigation frozen$(li)50% $(thing)infighting$() - nearby mobs of the same kind start fighting (16 blocks)$(br2)Chance and radius are configurable."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Right click a villager",
+      "text": "Trade 1 coin for a $(thing)permanent 20% discount$().$(br2)Wandering traders accept it too."
+    }
+  ]
+}

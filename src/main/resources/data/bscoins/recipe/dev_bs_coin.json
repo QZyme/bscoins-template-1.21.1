@@ -1,0 +1,15 @@
+{
+  "neoforge:conditions": [
+    { "type": "bscoins:config", "value": "enableDevCoin" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "bscoins:bs_coin" },
+    { "item": "minecraft:nether_star" }
+  ],
+  "result": {
+    "id": "bscoins:dev_bs_coin",
+    "count": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "签名照与 NBT 查看器",
+  "category": "bscoins:items",
+  "icon": "bscoins:beishan_photo",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:beishan_photo",
+      "title": "北山签名照",
+      "text": "举起来就是拍照: 面前闪一下 (闪光 + 火星)、快门音效, 半径 16 格内的其他玩家都会收到被闪到的消息。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "bscoins:nbt_viewer",
+      "title": "NBT 查看器",
+      "text": "右键方块看方块实体 NBT, 右键生物看实体 NBT, 全部输出到聊天栏。"
+    }
+  ]
+}

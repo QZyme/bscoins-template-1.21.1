@@ -1,0 +1,23 @@
+{
+  "name": "调试与配置",
+  "category": "bscoins:systems",
+  "icon": "minecraft:command_block",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "潜行 + Q",
+      "text": "手持北山币潜行按 Q, $(thing)1 枚币一次到位$():$(li)在$(thing)脚下一层$()铺满 20x20 测试平台 (直接覆盖原地形)$(li)在面前 3 格召唤一个测试假人$(br2)两个功能可以各自在配置里关掉; 都关掉时按了也不会扣币。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "测试假人",
+      "text": "血量 100, 带 Boss 血条 + 倒计时 (默认 60 秒), 到点自己冒烟消散。$(br2)被打时头顶会飘出$(thing)伤害数字$() (显示实际掉的血, 致命一击标红); 0.6 秒内连打会把数字往上错开, 不会叠在一起。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "开发助手与配置",
+      "text": "手持北山币按 $(thing)G$() (或潜行右键空气) 打开北山开发助手界面, 消耗 1 枚; 开发版北山币潜行 + Q 则是执行 /reload。$(br2)所有数值都在 $(thing)config/bscoins-common.toml$() 里, 也可以在模组列表里点配置按钮改。"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "type": "minecraft:chest",
+  "random_sequence": "bscoins:airdrop",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "minecraft:chests/simple_dungeon"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 190
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:bs_coin",
+          "weight": 14,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:like",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 2.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:coin_toss",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:favorite",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:nag_megaphone",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:pigeon_trap",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:nbt_viewer",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:beishan_photo",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:structure_airdrop",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:infra_pickaxe",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "bscoins:dev_bs_coin",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

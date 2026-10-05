@@ -1,0 +1,52 @@
+{
+  "loader": "neoforge:obj",
+  "model": "bscoins:models/block/custom/nbt_viewer.obj",
+  "flip_v": true,
+  "automatic_culling": false,
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "bscoins:block/nbt_viewer"
+  },
+  "display": {
+    "gui": {
+      "rotation": [30, -45, 0],
+      "translation": [0, 0, 0],
+      "scale": [1.15, 1.15, 1.15]
+    },
+    "ground": {
+      "rotation": [0, -135, 0],
+      "translation": [0, 1.0, 0],
+      "scale": [0.7, 0.7, 0.7]
+    },
+    "fixed": {
+      "rotation": [0, -135, 0],
+      "translation": [0, 0, 0],
+      "scale": [0.7, 0.7, 0.7]
+    },
+    "head": {
+      "rotation": [0, 45, 0],
+      "translation": [0, 13, 7],
+      "scale": [1.3, 1.3, 1.3]
+    },
+    "thirdperson_righthand": {
+      "rotation": [0, -90, 0],
+      "translation": [0, 3.0, 1],
+      "scale": [1.3, 1.3, 1.3]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [0, -90, 0],
+      "translation": [0, 3.0, 1],
+      "scale": [1.3, 1.3, 1.3]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, -90, 0],
+      "translation": [2.0, 3.2, 2.0],
+      "scale": [0.95, 0.95, 0.95]
+    },
+    "firstperson_lefthand": {
+      "rotation": [0, -90, 0],
+      "translation": [2.0, 3.2, 2.0],
+      "scale": [0.95, 0.95, 0.95]
+    }
+  }
+}

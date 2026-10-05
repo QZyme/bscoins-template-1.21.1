@@ -1,0 +1,6 @@
+{
+  "name": "投掷与手感",
+  "description": "Q / V 把币弹射出去: 初速、空气阻力、插地、伤害与射程。",
+  "icon": "minecraft:arrow",
+  "sortnum": 1
+}
