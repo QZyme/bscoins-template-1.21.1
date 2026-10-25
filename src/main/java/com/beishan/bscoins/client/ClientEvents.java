@@ -109,8 +109,7 @@ public class ClientEvents {
         if (coin) {
             if (dropLatch.fired(mc.options.keyDrop)) {
                 if (player.isShiftKeyDown()) {
-                    // 传 coinStack 而不是 main: 副手拿开发版币时也要走 /reload 分支
-                    handleSneakQ(player, coinStack);
+                    handleSneakQ();
                 } else if (!cooling) {
                     ModNetwork.sendToServer(new ModPayloads.ThrowCoinPayload());
                 }
@@ -136,17 +135,15 @@ public class ClientEvents {
         return stack.is(BSCoins.BS_COIN.get()) || stack.is(BSCoins.DEV_BS_COIN.get());
     }
 
-    private void handleSneakQ(Player player, ItemStack main) {
-        boolean dev = main.is(BSCoins.DEV_BS_COIN.get());
-        if (dev && Config.ENABLE_RELOAD.get()) {
-            ModNetwork.sendToServer(new ModPayloads.SneakQPayload(
-                    ModPayloads.SneakQPayload.ACTION_RELOAD, 0, 0, 0));
-            return;
-        }
-        // 一键搭测试场地: 脚下一层平台 + 面前一个假人, 合计只花 1 枚币。
-        // 位置全部由服务端按玩家自己算, 所以客户端不再需要按"看向方块还是空气"分支。
+    private void handleSneakQ() {
+        // 动作交给服务端判断:
+        //  - 客户端读的是本地 common 配置, 和服务端那份可能不一致 (客户端说"关了就搭平台",
+        //    服务端却收得下, 于是白扣一枚币);
+        //  - "扣哪一枚币"只有服务端说了算。主手普通币 + 副手开发版币时, 客户端以前按主手
+        //    判成非开发版发 SETUP, 服务端就去扣那枚普通币搭平台 —— 玩家想重载, 币却没了。
+        // 所以这里只发一个"潜行Q"的动作请求, 由服务端决定重载还是搭场地。
         ModNetwork.sendToServer(new ModPayloads.SneakQPayload(
-                ModPayloads.SneakQPayload.ACTION_SETUP, 0, 0, 0));
+                ModPayloads.SneakQPayload.ACTION_AUTO, 0, 0, 0));
     }
 
     private void handleHold(Minecraft mc, Player player, boolean coin) {

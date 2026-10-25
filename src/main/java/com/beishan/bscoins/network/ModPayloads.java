@@ -31,6 +31,11 @@ public final class ModPayloads {
         public static final int ACTION_SETUP = 0;
         /** 开发版北山币: 执行 /reload */
         public static final int ACTION_RELOAD = 1;
+        /**
+         * 让服务端自己挑动作。客户端读的是本地的 common 配置, 和服务端可能不一致;
+         * 而且"扣哪一枚币"只有服务端说了算, 所以动作选择必须放在服务端。
+         */
+        public static final int ACTION_AUTO = 2;
 
         public static final Type<SneakQPayload> TYPE = new Type<>(BSCoins.id("sneak_q"));
         public static final StreamCodec<RegistryFriendlyByteBuf, SneakQPayload> STREAM_CODEC = StreamCodec.composite(

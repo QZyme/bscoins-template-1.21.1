@@ -38,6 +38,7 @@
   "tooltip.bscoins.pressure_letter_2": "Skip using coins for days and it keeps following you",
   "message.bscoins.tip": "Beishan Coin! You got Goad + Boss buffs!",
   "message.bscoins.villager": "Shop VIP: villager gives you permanent 20%% off!",
+  "message.bscoins.villager_no_trades": "This villager has no trades right now (no profession / out of stock). Keep your coin.",
   "message.bscoins.megaphone": "Nag megaphone: %s player(s) nagging with you - Goad applied!",
   "message.bscoins.megaphone_shout": "%s is nagging you to update with a megaphone! (Goad %ss)",
   "message.bscoins.pigeon_trap": "%s pigeons burst out of the trap! Coo coo!",
@@ -238,5 +239,7 @@
   "bscoins.configuration.airdropFallSpeed.tooltip": "Crate descent speed in blocks/tick; 0.15 ~= 3 blocks per second.",
   "key.categories.bscoins": "BS Coins",
   "key.bscoins.throw": "Throw Beishan Coin",
-  "key.bscoins.assistant": "Beishan Dev Assistant"
+  "key.bscoins.assistant": "Beishan Dev Assistant",
+  "book.bscoins.guide.name": "Beishan Coin Guide",
+  "book.bscoins.guide.landing": "The complete manual for the Beishan Coin mod.$(br2)The table of contents is on the left: if you can't find something, try $(thing)Items$() and $(thing)Systems & Debug$()."
 }

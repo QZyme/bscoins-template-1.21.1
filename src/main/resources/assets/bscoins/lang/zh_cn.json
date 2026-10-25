@@ -38,6 +38,7 @@
   "tooltip.bscoins.pressure_letter_2": "连续多天没用北山币, 就会一直被跟着",
   "message.bscoins.tip": "北山币! 你被打赏了 (鸡血+老板 Buff)!",
   "message.bscoins.villager": "北山小卖部特惠: 村民给你永久8折!",
+  "message.bscoins.villager_no_trades": "这个村民现在没得交易 (没职业或还没补货), 先把币收着吧",
   "message.bscoins.megaphone": "催更大喇叭: 附近 %s 位玩家一起催更, 鸡血已加满!",
   "message.bscoins.megaphone_shout": "%s 用催更大喇叭催你更新了! (鸡血 %s 秒)",
   "message.bscoins.pigeon_trap": "%s 只鸽子扑棱棱飞了出来! 咕咕咕",
@@ -154,5 +155,7 @@
   "bscoins.configuration.airdropFallSpeed": "空投速度",
   "key.categories.bscoins": "北山币",
   "key.bscoins.throw": "投掷北山币",
-  "key.bscoins.assistant": "北山开发助手"
+  "key.bscoins.assistant": "北山开发助手",
+  "book.bscoins.guide.name": "北山币指南",
+  "book.bscoins.guide.landing": "北山币模组的完整说明书。$(br2)左边是目录：找不到东西就翻 $(thing)道具图鉴$() 和 $(thing)系统与调试$()。"
 }

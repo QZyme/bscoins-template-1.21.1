@@ -30,9 +30,12 @@ public final class VillagerDiscountOps {
         boolean first = !isDiscounted(villager);
         applyDiscount(villager, percent);
         // 只在首次提示, 否则每次打开交易界面都会刷屏
-        if (first && player != null) {
-            player.sendSystemMessage(Component.translatable("message.bscoins.villager")
-                    .withStyle(ChatFormatting.GREEN));
+        if (first) {
+            BSCoins.LOGGER.debug("北山小卖部: 村民 {} 已获得永久 -{}% 交易", villager.getUUID(), percent);
+            if (player != null) {
+                player.sendSystemMessage(Component.translatable("message.bscoins.villager")
+                        .withStyle(ChatFormatting.GREEN));
+            }
         }
         return first;
     }
@@ -45,10 +48,10 @@ public final class VillagerDiscountOps {
         CompoundTag nbt = villager.getPersistentData();
         nbt.putBoolean(TAG_DISCOUNTED, true);
         reapply(villager, percent);
-        logApplied(villager);
     }
 
     public static void reapply(AbstractVillager villager, int percent) {
+        if (villager.level().isClientSide) return;
         MerchantOffers offers = villager.getOffers();
         if (offers == null) return;
         for (MerchantOffer offer : offers) {
@@ -57,6 +60,10 @@ public final class VillagerDiscountOps {
             int discount = (int) Math.ceil(base * percent / 100.0);
             // 防止折后价 <= 0
             int diff = -Math.min(discount, base - 1);
+            // 刻意"覆盖"而不是和已有的 diff 取 min:
+            // 原版 startTrading() 是 先 updateSpecialPrices(叠加声望/英雄折扣) 再 setTradingPlayer,
+            // 而本类的兜底只会在"没人在交易"时重贴, 所以声望折扣永远是叠在我们这个 -percent% 之上,
+            // 不会被抹掉; 反过来若取 min, 万一手上的 diff 已经叠过声望, 重贴时就会把它算进去再叠一遍。
             if (offer.getSpecialPriceDiff() != diff) {
                 offer.setSpecialPriceDiff(diff);
             }
@@ -65,9 +72,5 @@ public final class VillagerDiscountOps {
 
     public static boolean isDiscounted(AbstractVillager villager) {
         return villager.getPersistentData().getBoolean(TAG_DISCOUNTED);
-    }
-
-    public static void logApplied(AbstractVillager villager) {
-        BSCoins.LOGGER.debug("北山小卖部: 村民 {} 已获得永久 {} 折交易", villager.getUUID(), "8");
     }
 }

@@ -46,8 +46,6 @@ public class BSCoinItem extends Item {
         if (!Config.ENABLE_BS_COIN.get()) return InteractionResult.PASS;
 
         boolean acted = false;
-        // 是否真的动用了一枚币 (已打过折的村民重新贴折扣不算), 决定要不要记入催更计时
-        boolean usedCoin = false;
         int consume = 0;
         switch (target) {
             case Player targetPlayer when Config.ENABLE_TIP.get() -> {
@@ -57,7 +55,6 @@ public class BSCoinItem extends Item {
                 targetPlayer.sendSystemMessage(Component.translatable("message.bscoins.tip")
                         .withStyle(ChatFormatting.GOLD));
                 consume = Config.TIP_CONSUME.get();
-                usedCoin = true;
                 acted = true;
             }
             // 村民必须排在 Mob 前面: Villager 本身也是 Mob, 否则永远匹配不到这一支
@@ -66,7 +63,6 @@ public class BSCoinItem extends Item {
                 // 仅村民, 不含流浪商人(北山小卖部本体)
                 if (VillagerDiscountOps.grantPermanentDiscount(villager, player, Config.VILLAGER_DISCOUNT_PERCENT.get())) {
                     consume = Config.VILLAGER_CONSUME.get();
-                    usedCoin = true;
                 }
                 acted = true;
             }
@@ -74,7 +70,6 @@ public class BSCoinItem extends Item {
             case Mob mob when Config.ENABLE_MONSTER_ATTACK.get() && !(target instanceof AbstractVillager) -> {
                 hitMonster(player, mob);
                 consume = Config.MONSTER_CONSUME.get();
-                usedCoin = true;
                 acted = true;
             }
             default -> {
@@ -82,11 +77,10 @@ public class BSCoinItem extends Item {
         }
 
         if (acted) {
-            if (usedCoin) {
-                CoinUsageTracker.markCoinUsed((ServerLevel) player.level(), (ServerPlayer) player);
-            }
+            CoinUsageTracker.markCoinUsed((ServerLevel) player.level(), (ServerPlayer) player);
             if (!player.getAbilities().instabuild && consume > 0) {
-                stack.shrink(consume);
+                // 配置项可能大于手上剩余数量: 夹一下, 免得 shrink 把数量搞成负数
+                stack.shrink(Math.min(consume, stack.getCount()));
             }
             return InteractionResult.SUCCESS;
         }

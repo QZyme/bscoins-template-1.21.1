@@ -8,7 +8,6 @@ import com.beishan.bscoins.client.ClientEvents;
 import com.beishan.bscoins.client.DevAssistantScreen;
 import com.beishan.bscoins.client.ThrownCoinRenderer;
 import com.beishan.bscoins.network.ModNetwork;
-import com.beishan.bscoins.network.ModPayloads;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.NoopRenderer;
@@ -20,9 +19,6 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 @Mod(value = BSCoins.MODID, dist = Dist.CLIENT)
 public class BSCoinsClient {
@@ -35,10 +31,15 @@ public class BSCoinsClient {
 
     public BSCoinsClient(IEventBus modEventBus, ModContainer container) {
         modEventBus.addListener(this::onClientSetup);
-        modEventBus.addListener(this::registerClientPayloads);
         modEventBus.addListener(this::registerKeyBindings);
         modEventBus.addListener(this::registerEntityRenderers);
         modEventBus.addListener(this::registerLayerDefinitions);
+        // 「开发助手已扣币」那条 S2C 包本身在 common 的 ModNetwork 里注册 (两端都得有,
+        // 否则联机时客户端会多报一条通道, 被服务端判成 mod 不兼容)。这里只把"收到了该做什么"挂上去。
+        ModNetwork.setAssistantOpener(context -> context.enqueueWork(() -> {
+            Minecraft minecraft = Minecraft.getInstance();
+            minecraft.setScreen(new DevAssistantScreen());
+        }));
         // 配置界面
         container.registerExtensionPoint(net.neoforged.neoforge.client.gui.IConfigScreenFactory.class,
                 net.neoforged.neoforge.client.gui.ConfigurationScreen::new);
@@ -59,20 +60,6 @@ public class BSCoinsClient {
 
     private void registerKeyBindings(RegisterKeyMappingsEvent event) {
         ClientEvents.registerKeys(event);
-    }
-
-    private void registerClientPayloads(RegisterPayloadHandlersEvent event) {
-        PayloadRegistrar registrar = event.registrar(ModNetwork.CHANNEL_VERSION);
-        registrar.playToClient(ModPayloads.OpenAssistantResponsePayload.TYPE,
-                ModPayloads.OpenAssistantResponsePayload.STREAM_CODEC,
-                this::handleOpenAssistant);
-    }
-
-    private void handleOpenAssistant(ModPayloads.OpenAssistantResponsePayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            Minecraft minecraft = Minecraft.getInstance();
-            minecraft.setScreen(new DevAssistantScreen());
-        });
     }
 
     /**

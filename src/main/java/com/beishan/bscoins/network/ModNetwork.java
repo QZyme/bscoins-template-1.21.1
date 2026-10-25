@@ -3,6 +3,8 @@ package com.beishan.bscoins.network;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
 
@@ -30,6 +32,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.resource.ResourcePackLoader;
 
@@ -40,7 +43,22 @@ import net.neoforged.neoforge.resource.ResourcePackLoader;
 public final class ModNetwork {
     public static final String CHANNEL_VERSION = "1";
 
+    /**
+     * 「开发助手已扣币」这条 S2C 包到达客户端后要做的事。
+     *
+     * <p>默认是空实现 —— 专用服务器上这条通道也会被注册 (见 {@link #registerPayloads}),
+     * 但服务端永远不会执行它。客户端在构造时用 {@link #setAssistantOpener} 换成真正打开 GUI 的实现,
+     * 这样 common 代码里就不会出现任何 {@code net.minecraft.client} 类型
+     * (方法引用一个只存在于客户端的类, 会让专用服务器在注册阶段就去加载它)。
+     */
+    private static volatile Consumer<IPayloadContext> assistantOpener = context -> {
+    };
+
     private ModNetwork() {
+    }
+
+    public static void setAssistantOpener(Consumer<IPayloadContext> opener) {
+        assistantOpener = Objects.requireNonNull(opener);
     }
 
     public static void register(IEventBus modEventBus) {
@@ -101,58 +119,16 @@ public final class ModNetwork {
                     ServerLevel level = player.serverLevel();
                     long now = level.getGameTime();
                     long last = player.getPersistentData().getLong("bscoins_sneakq_time");
-                    if (now - last < 2) return;
+                    // last == 0 表示"本次进游戏还没按过": 不能拿 0 当时间戳,
+                    // 否则刚进世界的那 2 tick 里按 Q 会被静默吞掉
+                    if (last != 0 && now - last < 2) return;
                     player.getPersistentData().putLong("bscoins_sneakq_time", now);
 
                     switch (payload.action()) {
-                        case ModPayloads.SneakQPayload.ACTION_SETUP -> {
-                            // 一键搭测试场地: 1 枚币同时搞定"脚下一层平台" + "面前一个假人"
-                            boolean platform = Config.ENABLE_TEST_PLATFORM.get();
-                            boolean dummy = Config.ENABLE_TEST_DUMMY.get();
-                            if (!platform && !dummy) return;
-                            if (takeCoinStack(player, 1) == null) return;
-                            if (platform) {
-                                buildFloorUnder(level, player);
-                            }
-                            if (dummy) {
-                                spawnTestDummy(level, player);
-                            }
-                            CoinUsageTracker.markCoinUsed(level, player);
-                        }
-                        case ModPayloads.SneakQPayload.ACTION_RELOAD -> {
-                            if (!Config.ENABLE_RELOAD.get()) return;
-                            // 重载是个重操作, 单独给 1 秒冷却, 防止拿着开发版币连点
-                            long lastReload = player.getPersistentData().getLong("bscoins_reload_time");
-                            if (now - lastReload < 20) return;
-                            // 只认"开发版币所在的那只手": 客户端就是按这枚币决定发这个包的。
-                            // (原来走 takeCoinStack, 它是主手优先 —— 主手普通币 + 副手开发版币时
-                            //  会去扣那枚普通币, 和玩家看到的不是同一枚)
-                            if (heldDevCoin(player).isEmpty()) return;
-                            player.getPersistentData().putLong("bscoins_reload_time", now);
-
-                            MinecraftServer server = player.getServer();
-                            if (server == null) return;
-
-                            // 和原版 /reload 走同一条重载路径, 但绕开命令解析。
-                            // 原因: /reload 的注册带 hasPermission(2), 没开作弊的单人存档 / 没 op 的
-                            // 服务器上, 命令会在解析阶段被拒("未知或不完整的命令"), 而那样一来
-                            // 既拿不到失败信号、又会白扣一枚币。这里直接看 future 的结果。
-                            server.reloadResources(discoverDataPacks(server)).whenComplete((unused, error) -> {
-                                if (error != null) {
-                                    BSCoins.LOGGER.warn("北山币: 开发版币触发的数据包重载失败", error);
-                                    player.sendSystemMessage(
-                                            Component.translatable("message.bscoins.reload_failed"));
-                                    return;   // 失败: 不扣币, 也不报"重载完成"
-                                }
-                                // 重新取一次手里的币, 避免重载期间玩家把币丢了/换手了还照扣
-                                ItemStack coin = heldDevCoin(player);
-                                if (!coin.isEmpty() && !player.getAbilities().instabuild) {
-                                    coin.shrink(1);
-                                }
-                                CoinUsageTracker.markCoinUsed(player.serverLevel(), player);
-                                player.sendSystemMessage(Component.translatable("message.bscoins.reload_done"));
-                            });
-                        }
+                        // 客户端只说"我按了潜行Q", 具体做什么由服务端判断
+                        case ModPayloads.SneakQPayload.ACTION_AUTO -> doSneakQ(player, level, now);
+                        case ModPayloads.SneakQPayload.ACTION_SETUP -> doSetup(player, level);
+                        case ModPayloads.SneakQPayload.ACTION_RELOAD -> doReload(player, now);
                         default -> {
                         }
                     }
@@ -189,6 +165,82 @@ public final class ModNetwork {
                     CoinUsageTracker.markCoinUsed(level, player);
                     player.sendSystemMessage(Component.translatable("message.bscoins.circle_spawned"));
                 });
+
+        // 开发助手: 服务端确认扣币成功 -> 通知客户端打开 GUI。
+        // 这一条<b>必须注册在 common</b>(两端都要有): 只在客户端注册会让客户端的通道列表比服务端
+        // 多出一条非 optional 通道, NeoForge 的 NetworkComponentNegotiator 会直接判定
+        // "mod 不兼容"(missing.client.server) 并把玩家踢出 —— 连没装本模组的服务器也进不去。
+        // 单机之所以一直没暴露, 是因为集成服务器和客户端在同一个 JVM 里共用同一张载荷注册表。
+        // 真正的 GUI 打开逻辑由客户端通过 setAssistantOpener 挂进来, 这里只调用这个钩子。
+        registrar.playToClient(ModPayloads.OpenAssistantResponsePayload.TYPE,
+                ModPayloads.OpenAssistantResponsePayload.STREAM_CODEC,
+                (payload, context) -> assistantOpener.accept(context));
+    }
+
+    /**
+     * 潜行 Q 的动作选择。放在服务端做: 客户端只知道自己那份 common 配置,
+     * 手上"真正有哪枚币"和"该扣哪枚"都是服务端的权威事实。
+     *
+     * <p>规则: 手上有开发版币<b>并且</b>开了重载开关 → 重载数据包; 否则搭测试场地。
+     */
+    private static void doSneakQ(ServerPlayer player, ServerLevel level, long now) {
+        if (Config.ENABLE_RELOAD.get() && !heldDevCoin(player).isEmpty()) {
+            doReload(player, now);
+        } else {
+            doSetup(player, level);
+        }
+    }
+
+    /** 一键搭测试场地: 1 枚币同时搞定"脚下一层平台" + "面前一个假人"。 */
+    private static void doSetup(ServerPlayer player, ServerLevel level) {
+        boolean platform = Config.ENABLE_TEST_PLATFORM.get();
+        boolean dummy = Config.ENABLE_TEST_DUMMY.get();
+        if (!platform && !dummy) return;
+        if (takeCoinStack(player, 1) == null) return;
+        if (platform) {
+            buildFloorUnder(level, player);
+        }
+        if (dummy) {
+            spawnTestDummy(level, player);
+        }
+        CoinUsageTracker.markCoinUsed(level, player);
+    }
+
+    /** 开发版币触发数据包重载 (带 5 秒冷却)。 */
+    private static void doReload(ServerPlayer player, long now) {
+        if (!Config.ENABLE_RELOAD.get()) return;
+        // 重载是重操作 (服务端线程上要真读一遍数据包), 单独给 5 秒冷却,
+        // 免得有人拿着开发版币连点把整个服务器卡住
+        long lastReload = player.getPersistentData().getLong("bscoins_reload_time");
+        if (lastReload != 0 && now - lastReload < 100) return;
+        // 只认"开发版币所在的那只手": 客户端就是拿着这枚币决定发这个包的。
+        // (原来走 takeCoinStack, 它是主手优先 —— 主手普通币 + 副手开发版币时
+        //  会去扣那枚普通币, 和玩家看到的不是同一枚)
+        if (heldDevCoin(player).isEmpty()) return;
+        player.getPersistentData().putLong("bscoins_reload_time", now);
+
+        MinecraftServer server = player.getServer();
+        if (server == null) return;
+
+        // 和原版 /reload 走同一条重载路径, 但绕开命令解析。
+        // 原因: /reload 的注册带 hasPermission(2), 没开作弊的单人存档 / 没 op 的
+        // 服务器上, 命令会在解析阶段被拒("未知或不完整的命令"), 而那样一来
+        // 既拿不到失败信号、又会白扣一枚币。这里直接看 future 的结果。
+        server.reloadResources(discoverDataPacks(server)).whenComplete((unused, error) -> {
+            if (error != null) {
+                BSCoins.LOGGER.warn("北山币: 开发版币触发的数据包重载失败", error);
+                player.sendSystemMessage(
+                        Component.translatable("message.bscoins.reload_failed"));
+                return;   // 失败: 不扣币, 也不报"重载完成"
+            }
+            // 重新取一次手里的币, 避免重载期间玩家把币丢了/换手了还照扣
+            ItemStack coin = heldDevCoin(player);
+            if (!coin.isEmpty() && !player.getAbilities().instabuild) {
+                coin.shrink(1);
+            }
+            CoinUsageTracker.markCoinUsed(player.serverLevel(), player);
+            player.sendSystemMessage(Component.translatable("message.bscoins.reload_done"));
+        });
     }
 
     /**
